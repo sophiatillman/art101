@@ -1,12 +1,21 @@
-
-.sectionbox {
-  border: solid 1px black;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px;
+.selected {
+  color: pink;
 }
 
-.special {
-  background-color: pink;
-  border: solid black;
+.selected2 {
+  color: red;
+}
+
+.selected3 {
+  color: pink
+}
+
+button {
+  border-radius: 8px;
+  background-color: olive;
+  color: white;
+}
+
+.heading {
+  margin-left: -325px;
 }
