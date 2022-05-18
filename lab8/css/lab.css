@@ -1,37 +1,13 @@
-h1 {
-  color: pink;
-  font-size: 400%;
-  font-family: cursive;
+body {
+  background-color: lightblue;
 }
-p#boat {
-  color: pink;
-  font-family: sans-serif;
-  line-height: 1.5;
-  text-indent: 20px;
-  margin-left: 10px;
-}
-#content {
-  background-color: grey;
-  width: 1400px;
-  min-height: 1400px;
-  padding: 15px
-}
-#img {
-  width: 400px;
-  margin-left: 30px;
-  line-height: 1.5;
-  margin-top: 20px;
 
+h1 {
+  color: white;
+  text-align: center;
 }
+
 h2 {
-  color: pink;
-  width: 400px;
-  font-size: 250%;
-  font-family: cursive;
-}
-h3 {
-  color: pink;
-  width: 300px;
-  font-size: 200%;
-  font-family: cursive;
+  font-family: verdana;
+  font-size: 14px;
 }
