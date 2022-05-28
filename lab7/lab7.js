@@ -7,6 +7,8 @@
  * @created 11.05.2009
  * @License  Public Domain
  */
+ //
+ 
 // sortUserName - a function that takes user input and sorts the letters
 // of their name
 function sortUserName() {
