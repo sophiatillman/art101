@@ -24,30 +24,29 @@
      <p> I figured it out!</p>
      <div id="output">
 <button id="activate">
+  <h2>JavaScript Geolocation</h2>
 
-<h2>JavaScript Geolocation</h2>
-
-<p>Click the button to get your coordinates.</p>
+  <p>Click the button to get your coordinates.</p>
 
 
-<p id="demo"></p>
+  <p id="demo"></p>
 
-<script>
-const x = document.getElementById("demo");
+  <script>
+  const x = document.getElementById("demo");
 
-function getLocation() {
-  try {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } catch {
-    x.innerHTML = err;
+  function getLocation() {
+    try {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } catch {
+      x.innerHTML = err;
+    }
   }
-}
 
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-}
-</script>
-    	</div>
-     	</body>
-     </html>
+  function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+  }
+  </script>
+
+  </body>
+  </html>
