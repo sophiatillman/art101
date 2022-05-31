@@ -8,53 +8,79 @@
 *Created: 19 May
 *License:Public Domain
 */
-{"month": "5", "num": 2626, "link": "", "year": "2022", "news": "", "safe_title": "d65536", "transcript": "", "alt": "They're robust against quantum attacks because it's hard to make a quantum system that large.", "img": "https://imgs.xkcd.com/comics/d65536.png", "title": "d65536", "day": "30"}
-var number = Math.floor(Math.random()*2000)
-var startUrl = "https://xkcd.com/"
-var endUrl = "/info.0.json"
 
 
-function getAndPutData(open, num, close) {
+var URL = "https://xkcd.com/info.0.json";
 
-  $.ajax({
-    url: startUrl + num + endUrl,
+// https://xkcd.com/json.html
+// endpoint https://xkcd.com/456/info.0.json
+var URLpre = "https://xkcd.com/";
+var URLpost = "info.0.json";
 
-    type: "GET",
+// Endpoint format: http://xkcd.com/614/info.0.json
 
-    dataType: "json",
-
-    success: function(data) {
-      var comicObj = data;
-      console.log(comicObj);
-      var titleEl = $("#comicName").html(comicObj.title);
-      console.log(titleEl);
-      console.log(comicObj.title);
-
-
-      var imgEl = $("<img>").attr("src", comicObj.img);
-      console.log(imgEl);
-      var altEl = comicObj.alt;
-      imgEl.attr("title", altEl);
-      $("#output").html(imgEl);
-
-        console.log(comicObj);
-    },
-
-    error: function(jqXHR, textStatus, errorThrown) {
-      console.log("Error: ", textStatus, errorThrown);
-    }
-  })
+// a helper function to turn single and double quotes into
+// html symbols so they don't confuse html tags
+//
+function make_safe(str) {
+  return str.replace(/'/g, '&apos;').replace(/"/g, '&quot;');
 }
 
-getAndPutData(startUrl, number, endUrl);
+function getComic(num) {
+  if (typeof num === 'undefined') {
+    numStr = "";
+  } else {
+    numStr = num.toString() + "/";
+  }
+  var ourURL = URLpre + numStr + URLpost;
+  console.log("Our new URL:", ourURL);
+  // get data via ajax from numbersapi
+  // Using the core $.ajax() method
+  $.ajax({
+      // The URL for the request (ENDPOINT)
+      url: ourURL,
+      // Whether this is a POST or GET request
+      type: "GET",
+  })
+  // If the request succeeds
+  .done(function(data) {
+      // console.log(data);
+      var imageUrl = data.img;
+      // we use .replace(/"/g, '\\"') after the text strings because
+      // sometimes there are single and double quotes in the text
+      // that confuses the html
+      var title = data.title;
+      console.log("orig title:", title);
+      title = make_safe(title);
+      console.log("safe title:", title);
+      var alt = data.alt;
+      console.log("orig alt:", alt);
+      alt = make_safe(alt);
+      console.log("safe alt:", alt);
+      var comicNum = data.num;
+      var html = `<div id="imageblock">
+          <h2>${title}</h2>
+          <img src="${imageUrl}" title="${alt}"><br>
+          <button id="prev">Previous</button><button id="next">Next</button>
+        </div>`
+      // console.log("My new html: \n", html);
+      $("#output").html(html);
 
+      // add event listener to new prev button
+      $("#prev").click(function(){
+        getComic(comicNum - 1);
+      });
+      // add event listener to new next button
+      $("#next").click(function(){
+        getComic(comicNum + 1);
+      });
+  })
+  .fail(function(){
+    console.log("^^ Please ignore this error. It's okay.");
+    console.log("Have a okay day! :-)");
+  })
 
-$("#backButton").click(function() {
-  number = number-1;
-  getAndPutData(startUrl, number, endUrl);
-})
+}
 
-$("#nextButton").click(function() {
-  number = number+1;
-  getAndPutData(startUrl, number, endUrl);
-})
+// start things off
+getComic();
